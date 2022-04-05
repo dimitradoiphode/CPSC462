@@ -1,20 +1,22 @@
 #include <iostream>
 #include <string>
 #include <set>
+#include <fstream> //added this
 // Dimitra Doiphode CPSC 462-01
 // 3/7/22 
 
 /*******************************************************************************
 **  Abstract Class  (Generalization)
 *******************************************************************************/
-class Person
+class User
 {
   public:
-    virtual std::string getSupper() const = 0;
-
-    virtual std::string transport() const = 0;
-    virtual std::string pay()       const = 0;
-    virtual std::string food()      const = 0;
+    virtual std::string authenticate() const = 0;
+    virtual void uploadFile() const = 0;
+    virtual void deleteFile() const = 0; //should we change upload/delete functions to be a function on feedback in
+    virtual std::string directMessage() const = 0;
+    virtual std::string hostMeeting() const = 0;
+    
 
     static std::set<Person *> & entirePopulation()
     { return people; }
@@ -35,7 +37,7 @@ inline Person::~Person()
 /*******************************************************************************
 **  Concrete Class  (Specialization)
 *******************************************************************************/
-class Wife : public Person
+class Jobseeker : public Person
 {
   public:
     Wife( const std::string & name = "Mom" )
