@@ -8,9 +8,19 @@
 /*******************************************************************************
 **  Abstract Class  (Generalization)
 *******************************************************************************/
-class User
+class Session
 {
   public:
+    // attributes
+    string username;
+    string firstname;
+    string lastname;
+    string city;
+    string state;
+    string industry;
+    int experienceYears;
+    
+    // functions
     virtual std::string authenticate() const = 0;
     virtual void uploadFile() const = 0;
     virtual void deleteFile() const = 0; //should we change upload/delete functions to be a function on feedback in
@@ -18,26 +28,27 @@ class User
     virtual std::string hostMeeting() const = 0;
     
 
-    static std::set<Person *> & entirePopulation()
+    static std::set<Session *> & entirePopulation()
     { return people; }
 
-    virtual ~Person() = 0;
+    virtual ~Session() = 0;
 
-  protected:
+  private:
+    string password;
     // Enable derived classes to register themselves into a collection of people
-    Person( Person * person )
-    { people.insert( person ); }
+    Session( Session * session )
+    { people.insert( session ); }
 
-    inline static std::set<Person *> people;
+    inline static std::set<Session *> people;
 };
-inline Person::~Person()
+inline Session::~Session()
 { people.erase( this ); }
 
 
 /*******************************************************************************
 **  Concrete Class  (Specialization)
 *******************************************************************************/
-class Jobseeker : public Person
+class Jobseeker : public Session
 {
   public:
     Wife( const std::string & name = "Mom" )
@@ -67,7 +78,7 @@ class Jobseeker : public Person
 /*******************************************************************************
 **  Concrete Class  (Specialization)
 *******************************************************************************/
-class TeenagedSon : public Person
+class TeenagedSon : public Session
 {
   public:
     TeenagedSon( const std::string & name = "Bobby" )
@@ -96,7 +107,7 @@ class TeenagedSon : public Person
 /*******************************************************************************
 **  Concrete Class  (Specialization)
 *******************************************************************************/
-class CollegeStudent : public Person
+class CollegeStudent : public Session
 {
   public:
     CollegeStudent( const std::string & name = "Tuffy" )
@@ -125,7 +136,7 @@ class CollegeStudent : public Person
 /*******************************************************************************
 **  Concrete Class  (Specialization)
 *******************************************************************************/
-class Millionaire : public Person
+class Millionaire : public Session
 {
   public:
     Millionaire( const std::string & name = "Jeff" )
@@ -155,7 +166,7 @@ class Millionaire : public Person
 **  Code to the Interface
 *******************************************************************************/
 // Passing by reference (vice value) is imperative!!  Pass by reference either by reference (&) or by pointer (*)
-std::string doSomething( const Person & person )
+std::string doSomething( const Session & session )
 { return person.getSupper(); }
 
 
